@@ -33,4 +33,8 @@ class Parser
       @command
     end
   end
+
+  def arg2
+    Integer(@command.split[2])
+  end
 end

@@ -98,4 +98,12 @@ class ParserTest < Minitest::Test
     parser.advance
     assert_equal("constant", parser.arg1)
   end
+
+  def test_arg2_for_push_command
+    input_file = StringIO.new("push constant 17")
+    parser = Parser.new(input_file)
+
+    parser.advance
+    assert_equal(17, parser.arg2)
+  end
 end
