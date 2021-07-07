@@ -17,4 +17,12 @@ class Parser
   def advance
     @command = @lines.shift
   end
+
+  def command_type
+    if @command.start_with?("push")
+      :C_PUSH
+    else
+      :C_ARITHMETIC
+    end
+  end
 end

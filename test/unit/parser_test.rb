@@ -43,7 +43,7 @@ class ParserTest < Minitest::Test
     parser.advance
 
     # assert_equal("1234", parser.symbol)
-    # assert_equal(:A_COMMAND, parser.command_type)
+    assert_equal(:C_PUSH, parser.command_type)
     refute(parser.has_more_commands?)
   end
 
@@ -55,7 +55,23 @@ class ParserTest < Minitest::Test
     parser.advance
 
     # assert_equal("D&M", parser.comp)
-    # assert_equal(:C_COMMAND, parser.command_type)
+    assert_equal(:C_PUSH, parser.command_type)
     refute(parser.has_more_commands?)
+  end
+
+  def test_command_type_returns_push_command
+    input_file = StringIO.new("push constant 17")
+    parser = Parser.new(input_file)
+
+    parser.advance
+    assert_equal(:C_PUSH, parser.command_type)
+  end
+
+  def test_command_type_returns_arithmetic_command
+    input_file = StringIO.new("lt")
+    parser = Parser.new(input_file)
+
+    parser.advance
+    assert_equal(:C_ARITHMETIC, parser.command_type)
   end
 end
