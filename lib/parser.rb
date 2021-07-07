@@ -25,4 +25,12 @@ class Parser
       :C_ARITHMETIC
     end
   end
+
+  def arg1
+    if command_type == :C_PUSH
+      @command.split[1]
+    else
+      @command
+    end
+  end
 end

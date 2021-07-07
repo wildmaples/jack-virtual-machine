@@ -74,4 +74,28 @@ class ParserTest < Minitest::Test
     parser.advance
     assert_equal(:C_ARITHMETIC, parser.command_type)
   end
+
+  def test_arg1_for_arithmetic_command_less_than
+    input_file = StringIO.new("lt")
+    parser = Parser.new(input_file)
+
+    parser.advance
+    assert_equal("lt", parser.arg1)
+  end
+
+  def test_arg1_for_arithmetic_command_add
+    input_file = StringIO.new("add")
+    parser = Parser.new(input_file)
+
+    parser.advance
+    assert_equal("add", parser.arg1)
+  end
+
+  def test_arg1_for_push_command
+    input_file = StringIO.new("push constant 17")
+    parser = Parser.new(input_file)
+
+    parser.advance
+    assert_equal("constant", parser.arg1)
+  end
 end
