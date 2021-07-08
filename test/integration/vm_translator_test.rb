@@ -2,7 +2,7 @@ require "test_helper"
 
 class VMTranslatorIntegrationTest < Minitest::Test
   def test_integration_test
-    assembly_code = `bin/vm-translator examples/push.vm`
+    assembly_code = `bin/vm-translator examples/Push.vm`
     expected = <<~EOF
       @17
       D=A
