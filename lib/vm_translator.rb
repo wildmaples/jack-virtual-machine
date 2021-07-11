@@ -17,6 +17,8 @@ class VMTranslator
       case parser.command_type
       when :C_PUSH
         @code_writer.write_push_pop(:C_PUSH, parser.arg1, parser.arg2)
+      when :C_ARITHMETIC
+        @code_writer.write_arithmetic(parser.arg1)
       end
     end
 
