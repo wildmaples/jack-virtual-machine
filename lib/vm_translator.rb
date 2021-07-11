@@ -1,7 +1,12 @@
+require_relative 'code_writer'
+require_relative 'parser'
+require 'stringio'
+
 class VMTranslator
   def initialize(input_file)
     @input_file = input_file
-    @code_writer = CodeWriter.new(STDOUT)
+    @out = StringIO.new
+    @code_writer = CodeWriter.new(@out)
   end
 
   def translate
@@ -16,5 +21,6 @@ class VMTranslator
     end
 
     @code_writer.close
+    @out.string
   end
 end
