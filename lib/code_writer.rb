@@ -15,6 +15,15 @@ class CodeWriter
     EOF
   end
 
+  def write_arithmetic(command)
+    @out.puts <<~EOF
+      AM=M-1
+      D=M
+      A=A-1
+      M=M+D
+    EOF
+  end
+
   def close
     @out.close
   end
