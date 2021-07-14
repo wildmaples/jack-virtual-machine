@@ -16,11 +16,12 @@ class CodeWriter
   end
 
   def write_arithmetic(command)
+    operation = command == "add" ? "+" : "-"
     @out.puts <<~EOF
       AM=M-1
       D=M
       A=A-1
-      M=M+D
+      M=M#{operation}D
     EOF
   end
 
