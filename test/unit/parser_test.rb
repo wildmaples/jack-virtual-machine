@@ -30,8 +30,9 @@ class ParserTest < Minitest::Test
     assert(parser.has_more_commands?)
     parser.advance
 
-    # assert_equal("push constant 17", parser.comp)
-    # assert_equal(:C_COMMAND, parser.command_type)
+    assert_equal(:C_PUSH, parser.command_type)
+    assert_equal("constant", parser.arg1)
+    assert_equal(17, parser.arg2)
     refute(parser.has_more_commands?)
   end
 
@@ -42,8 +43,9 @@ class ParserTest < Minitest::Test
     assert(parser.has_more_commands?)
     parser.advance
 
-    # assert_equal("1234", parser.symbol)
     assert_equal(:C_PUSH, parser.command_type)
+    assert_equal("constant", parser.arg1)
+    assert_equal(17, parser.arg2)
     refute(parser.has_more_commands?)
   end
 
@@ -54,8 +56,9 @@ class ParserTest < Minitest::Test
     assert(parser.has_more_commands?)
     parser.advance
 
-    # assert_equal("D&M", parser.comp)
     assert_equal(:C_PUSH, parser.command_type)
+    assert_equal("constant", parser.arg1)
+    assert_equal(17, parser.arg2)
     refute(parser.has_more_commands?)
   end
 
