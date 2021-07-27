@@ -71,4 +71,33 @@ class CodeWriterTest < Minitest::Test
 
     assert_equal(expected, output.string)
   end
+
+  def test_write_arithmetic_eq
+    output = StringIO.new
+    code_writer = CodeWriter.new(output)
+    code_writer.write_arithmetic("eq")
+    expected = <<~EOF
+      AM=M-1
+      D=M
+      A=A-1
+
+      D=M-D
+      @EQUAL
+      D;JEQ
+
+      @SP
+      A=M-1
+      M=0
+      @END
+      0;JMP
+
+      (EQUAL)
+      @SP
+      A=M-1
+      M=-1
+      (END)
+    EOF
+
+    assert_equal(expected, output.string)
+  end
 end
