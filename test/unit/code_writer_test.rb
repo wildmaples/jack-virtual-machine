@@ -12,7 +12,7 @@ class CodeWriterTest < Minitest::Test
       @SP
       A=M
       M=D
-      @SP 
+      @SP
       M=M+1
     EOF
 
@@ -29,7 +29,7 @@ class CodeWriterTest < Minitest::Test
       @SP
       A=M
       M=D
-      @SP 
+      @SP
       M=M+1
     EOF
 

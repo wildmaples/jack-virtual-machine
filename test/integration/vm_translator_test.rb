@@ -9,7 +9,7 @@ class VMTranslatorIntegrationTest < Minitest::Test
       @SP
       A=M
       M=D
-      @SP 
+      @SP
       M=M+1
     EOF
 
@@ -24,14 +24,14 @@ class VMTranslatorIntegrationTest < Minitest::Test
       @SP
       A=M
       M=D
-      @SP 
+      @SP
       M=M+1
       @8
       D=A
       @SP
       A=M
       M=D
-      @SP 
+      @SP
       M=M+1
       AM=M-1
       D=M

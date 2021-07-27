@@ -10,7 +10,7 @@ class CodeWriter
       @SP
       A=M
       M=D
-      @SP 
+      @SP
       M=M+1
     EOF
   end
