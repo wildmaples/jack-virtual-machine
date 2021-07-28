@@ -55,21 +55,22 @@ class CodeWriter
         A=A-1
 
         D=M-D
-        @LESSTHAN
+        @LESSTHAN#{@label_counter}
         D;JLT
 
         @SP
         A=M-1
         M=0
-        @END
+        @END#{@label_counter}
         0;JMP
 
-        (LESSTHAN)
+        (LESSTHAN#{@label_counter})
         @SP
         A=M-1
         M=-1
-        (END)
+        (END#{@label_counter})
       EOF
+      @label_counter += 1
     end
   end
 
