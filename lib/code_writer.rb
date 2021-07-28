@@ -48,6 +48,28 @@ class CodeWriter
         (END#{@label_counter})
       EOF
       @label_counter += 1
+    elsif command == "lt"
+      @out.puts <<~EOF
+        AM=M-1
+        D=M
+        A=A-1
+
+        D=M-D
+        @LESSTHAN
+        D;JLT
+
+        @SP
+        A=M-1
+        M=0
+        @END
+        0;JMP
+
+        (LESSTHAN)
+        @SP
+        A=M-1
+        M=-1
+        (END)
+      EOF
     end
   end
 
