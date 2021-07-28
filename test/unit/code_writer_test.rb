@@ -82,20 +82,69 @@ class CodeWriterTest < Minitest::Test
       A=A-1
 
       D=M-D
-      @EQUAL
+      @EQUAL0
       D;JEQ
 
       @SP
       A=M-1
       M=0
-      @END
+      @END0
       0;JMP
 
-      (EQUAL)
+      (EQUAL0)
       @SP
       A=M-1
       M=-1
-      (END)
+      (END0)
+    EOF
+
+    assert_equal(expected, output.string)
+  end
+
+  def test_write_arithmetic_eq_twice
+    output = StringIO.new
+    code_writer = CodeWriter.new(output)
+    code_writer.write_arithmetic("eq")
+    code_writer.write_arithmetic("eq")
+    expected = <<~EOF
+      AM=M-1
+      D=M
+      A=A-1
+
+      D=M-D
+      @EQUAL0
+      D;JEQ
+
+      @SP
+      A=M-1
+      M=0
+      @END0
+      0;JMP
+
+      (EQUAL0)
+      @SP
+      A=M-1
+      M=-1
+      (END0)
+      AM=M-1
+      D=M
+      A=A-1
+
+      D=M-D
+      @EQUAL1
+      D;JEQ
+
+      @SP
+      A=M-1
+      M=0
+      @END1
+      0;JMP
+
+      (EQUAL1)
+      @SP
+      A=M-1
+      M=-1
+      (END1)
     EOF
 
     assert_equal(expected, output.string)
