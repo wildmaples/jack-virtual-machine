@@ -10,6 +10,11 @@ jobs:
         with:
           ruby-version: 2.7
           bundler-cache: true
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11
+          distribution: adopt
       - name: Download the nand2tetris tools
         run: |
           curl --location --output nand2tetris.zip 'https://drive.google.com/uc?id=1xZzcMIUETv3u3sdpM_oTJSTetpVee3KZ&export=download'
