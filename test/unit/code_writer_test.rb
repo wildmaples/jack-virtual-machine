@@ -82,7 +82,7 @@ class CodeWriterTest < Minitest::Test
       A=A-1
 
       D=M-D
-      @EQUAL0
+      @IFTRUE0
       D;JEQ
 
       @SP
@@ -91,7 +91,7 @@ class CodeWriterTest < Minitest::Test
       @END0
       0;JMP
 
-      (EQUAL0)
+      (IFTRUE0)
       @SP
       A=M-1
       M=-1
@@ -112,7 +112,7 @@ class CodeWriterTest < Minitest::Test
       A=A-1
 
       D=M-D
-      @EQUAL0
+      @IFTRUE0
       D;JEQ
 
       @SP
@@ -121,7 +121,7 @@ class CodeWriterTest < Minitest::Test
       @END0
       0;JMP
 
-      (EQUAL0)
+      (IFTRUE0)
       @SP
       A=M-1
       M=-1
@@ -131,7 +131,7 @@ class CodeWriterTest < Minitest::Test
       A=A-1
 
       D=M-D
-      @EQUAL1
+      @IFTRUE1
       D;JEQ
 
       @SP
@@ -140,7 +140,7 @@ class CodeWriterTest < Minitest::Test
       @END1
       0;JMP
 
-      (EQUAL1)
+      (IFTRUE1)
       @SP
       A=M-1
       M=-1
@@ -160,7 +160,7 @@ class CodeWriterTest < Minitest::Test
       A=A-1
 
       D=M-D
-      @LESSTHAN0
+      @IFTRUE0
       D;JLT
 
       @SP
@@ -169,7 +169,7 @@ class CodeWriterTest < Minitest::Test
       @END0
       0;JMP
 
-      (LESSTHAN0)
+      (IFTRUE0)
       @SP
       A=M-1
       M=-1
@@ -190,7 +190,7 @@ class CodeWriterTest < Minitest::Test
       A=A-1
 
       D=M-D
-      @LESSTHAN0
+      @IFTRUE0
       D;JLT
 
       @SP
@@ -199,7 +199,7 @@ class CodeWriterTest < Minitest::Test
       @END0
       0;JMP
 
-      (LESSTHAN0)
+      (IFTRUE0)
       @SP
       A=M-1
       M=-1
@@ -209,7 +209,7 @@ class CodeWriterTest < Minitest::Test
       A=A-1
 
       D=M-D
-      @LESSTHAN1
+      @IFTRUE1
       D;JLT
 
       @SP
@@ -218,7 +218,7 @@ class CodeWriterTest < Minitest::Test
       @END1
       0;JMP
 
-      (LESSTHAN1)
+      (IFTRUE1)
       @SP
       A=M-1
       M=-1

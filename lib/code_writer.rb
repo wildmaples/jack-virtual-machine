@@ -32,7 +32,7 @@ class CodeWriter
         A=A-1
 
         D=M-D
-        @EQUAL#{@label_counter}
+        @IFTRUE#{@label_counter}
         D;JEQ
 
         @SP
@@ -41,7 +41,7 @@ class CodeWriter
         @END#{@label_counter}
         0;JMP
 
-        (EQUAL#{@label_counter})
+        (IFTRUE#{@label_counter})
         @SP
         A=M-1
         M=-1
@@ -55,7 +55,7 @@ class CodeWriter
         A=A-1
 
         D=M-D
-        @LESSTHAN#{@label_counter}
+        @IFTRUE#{@label_counter}
         D;JLT
 
         @SP
@@ -64,7 +64,7 @@ class CodeWriter
         @END#{@label_counter}
         0;JMP
 
-        (LESSTHAN#{@label_counter})
+        (IFTRUE#{@label_counter})
         @SP
         A=M-1
         M=-1

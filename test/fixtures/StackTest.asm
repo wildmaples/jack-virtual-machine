@@ -17,7 +17,7 @@ D=M
 A=A-1
 
 D=M-D
-@EQUAL0
+@IFTRUE0
 D;JEQ
 
 @SP
@@ -26,7 +26,7 @@ M=0
 @END0
 0;JMP
 
-(EQUAL0)
+(IFTRUE0)
 @SP
 A=M-1
 M=-1
@@ -50,7 +50,7 @@ D=M
 A=A-1
 
 D=M-D
-@EQUAL1
+@IFTRUE1
 D;JEQ
 
 @SP
@@ -59,7 +59,7 @@ M=0
 @END1
 0;JMP
 
-(EQUAL1)
+(IFTRUE1)
 @SP
 A=M-1
 M=-1
@@ -83,7 +83,7 @@ D=M
 A=A-1
 
 D=M-D
-@EQUAL2
+@IFTRUE2
 D;JEQ
 
 @SP
@@ -92,7 +92,7 @@ M=0
 @END2
 0;JMP
 
-(EQUAL2)
+(IFTRUE2)
 @SP
 A=M-1
 M=-1
@@ -116,7 +116,7 @@ D=M
 A=A-1
 
 D=M-D
-@LESSTHAN3
+@IFTRUE3
 D;JLT
 
 @SP
@@ -125,7 +125,7 @@ M=0
 @END3
 0;JMP
 
-(LESSTHAN3)
+(IFTRUE3)
 @SP
 A=M-1
 M=-1
@@ -149,7 +149,7 @@ D=M
 A=A-1
 
 D=M-D
-@LESSTHAN4
+@IFTRUE4
 D;JLT
 
 @SP
@@ -158,7 +158,7 @@ M=0
 @END4
 0;JMP
 
-(LESSTHAN4)
+(IFTRUE4)
 @SP
 A=M-1
 M=-1
@@ -182,7 +182,7 @@ D=M
 A=A-1
 
 D=M-D
-@LESSTHAN5
+@IFTRUE5
 D;JLT
 
 @SP
@@ -191,7 +191,7 @@ M=0
 @END5
 0;JMP
 
-(LESSTHAN5)
+(IFTRUE5)
 @SP
 A=M-1
 M=-1

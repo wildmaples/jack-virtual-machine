@@ -17,7 +17,7 @@ D=M
 A=A-1
 
 D=M-D
-@EQUAL0
+@IFTRUE0
 D;JEQ
 
 @SP
@@ -26,7 +26,7 @@ M=0
 @END0
 0;JMP
 
-(EQUAL0)
+(IFTRUE0)
 @SP
 A=M-1
 M=-1
