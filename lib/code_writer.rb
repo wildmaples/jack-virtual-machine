@@ -25,7 +25,8 @@ class CodeWriter
         A=A-1
         M=M#{operation}D
       EOF
-    elsif command == "eq"
+    elsif command == "eq" or command == "lt"
+      jump = command == "eq" ? "JEQ" : "JLT"
       @out.puts <<~EOF
         AM=M-1
         D=M
@@ -33,30 +34,7 @@ class CodeWriter
 
         D=M-D
         @IFTRUE#{@label_counter}
-        D;JEQ
-
-        @SP
-        A=M-1
-        M=0
-        @END#{@label_counter}
-        0;JMP
-
-        (IFTRUE#{@label_counter})
-        @SP
-        A=M-1
-        M=-1
-        (END#{@label_counter})
-      EOF
-      @label_counter += 1
-    elsif command == "lt"
-      @out.puts <<~EOF
-        AM=M-1
-        D=M
-        A=A-1
-
-        D=M-D
-        @IFTRUE#{@label_counter}
-        D;JLT
+        D;#{jump}
 
         @SP
         A=M-1
