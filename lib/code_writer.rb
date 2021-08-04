@@ -26,7 +26,6 @@ class CodeWriter
         M=M#{operation}D
       EOF
     elsif command == "eq" or command == "lt"
-      jump = command == "eq" ? "JEQ" : "JLT"
       @out.puts <<~EOF
         AM=M-1
         D=M
@@ -34,7 +33,7 @@ class CodeWriter
 
         D=M-D
         @IFTRUE#{@label_counter}
-        D;#{jump}
+        D;J#{command.upcase}
 
         @SP
         A=M-1
