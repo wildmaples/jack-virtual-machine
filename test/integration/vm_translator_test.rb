@@ -18,4 +18,10 @@ class VMTranslatorIntegrationTest < Minitest::Test
     expected = File.read("test/fixtures/SimpleEq.asm")
     assert_equal(expected, assembly_code)
   end
+
+  def test_integration_test_stack_test
+    assembly_code = `bin/vm-translator examples/StackTest.vm`
+    expected = File.read("test/fixtures/StackTest.asm")
+    assert_equal(expected, assembly_code)
+  end
 end
