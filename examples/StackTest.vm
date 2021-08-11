@@ -38,3 +38,4 @@ push constant 53
 add
 push constant 112
 sub
+neg

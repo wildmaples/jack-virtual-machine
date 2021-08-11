@@ -256,4 +256,16 @@ class CodeWriterTest < Minitest::Test
 
     assert_equal(expected, output.string)
   end
+
+  def test_write_arithmetic_neg
+    output = StringIO.new
+    code_writer = CodeWriter.new(output)
+    code_writer.write_arithmetic("neg")
+    expected = <<~EOF
+      A=M-1
+      M=-M
+    EOF
+
+    assert_equal(expected, output.string)
+  end
 end

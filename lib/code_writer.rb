@@ -17,7 +17,12 @@ class CodeWriter
   end
 
   def write_arithmetic(command)
-    if command == "add" or command == "sub"
+    if command == "neg"
+      @out.puts <<~EOF
+        A=M-1
+        M=-M
+      EOF
+    elsif command == "add" or command == "sub"
       operation = command == "add" ? "+" : "-"
       @out.puts <<~EOF
         AM=M-1
