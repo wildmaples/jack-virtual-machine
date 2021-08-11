@@ -24,6 +24,10 @@ class CodeWriter
   }
 
   def write_arithmetic(command)
+    @out.puts <<~EOF
+      @SP
+    EOF
+    
     if command == "neg" or command == "not"
       operation = command == "neg" ? "-" : "!"
       @out.puts <<~EOF

@@ -49,6 +49,7 @@ class CodeWriterTest < Minitest::Test
     code_writer = CodeWriter.new(output)
     code_writer.write_arithmetic("add")
     expected = <<~EOF
+      @SP
       AM=M-1
       D=M
       A=A-1
@@ -63,6 +64,7 @@ class CodeWriterTest < Minitest::Test
     code_writer = CodeWriter.new(output)
     code_writer.write_arithmetic("sub")
     expected = <<~EOF
+      @SP
       AM=M-1
       D=M
       A=A-1
@@ -77,6 +79,7 @@ class CodeWriterTest < Minitest::Test
     code_writer = CodeWriter.new(output)
     code_writer.write_arithmetic("eq")
     expected = <<~EOF
+      @SP
       AM=M-1
       D=M
       A=A-1
@@ -107,6 +110,7 @@ class CodeWriterTest < Minitest::Test
     code_writer.write_arithmetic("eq")
     code_writer.write_arithmetic("eq")
     expected = <<~EOF
+      @SP
       AM=M-1
       D=M
       A=A-1
@@ -126,6 +130,7 @@ class CodeWriterTest < Minitest::Test
       A=M-1
       M=-1
       (END0)
+      @SP
       AM=M-1
       D=M
       A=A-1
@@ -155,6 +160,7 @@ class CodeWriterTest < Minitest::Test
     code_writer = CodeWriter.new(output)
     code_writer.write_arithmetic("lt")
     expected = <<~EOF
+      @SP
       AM=M-1
       D=M
       A=A-1
@@ -185,6 +191,7 @@ class CodeWriterTest < Minitest::Test
     code_writer.write_arithmetic("lt")
     code_writer.write_arithmetic("lt")
     expected = <<~EOF
+      @SP
       AM=M-1
       D=M
       A=A-1
@@ -204,6 +211,7 @@ class CodeWriterTest < Minitest::Test
       A=M-1
       M=-1
       (END0)
+      @SP
       AM=M-1
       D=M
       A=A-1
@@ -233,6 +241,7 @@ class CodeWriterTest < Minitest::Test
     code_writer = CodeWriter.new(output)
     code_writer.write_arithmetic("gt")
     expected = <<~EOF
+      @SP
       AM=M-1
       D=M
       A=A-1
@@ -262,6 +271,7 @@ class CodeWriterTest < Minitest::Test
     code_writer = CodeWriter.new(output)
     code_writer.write_arithmetic("neg")
     expected = <<~EOF
+      @SP
       A=M-1
       M=-M
     EOF
@@ -274,6 +284,7 @@ class CodeWriterTest < Minitest::Test
     code_writer = CodeWriter.new(output)
     code_writer.write_arithmetic("and")
     expected = <<~EOF
+      @SP
       AM=M-1
       D=M
       A=A-1
@@ -288,6 +299,7 @@ class CodeWriterTest < Minitest::Test
     code_writer = CodeWriter.new(output)
     code_writer.write_arithmetic("or")
     expected = <<~EOF
+      @SP
       AM=M-1
       D=M
       A=A-1
@@ -302,6 +314,7 @@ class CodeWriterTest < Minitest::Test
     code_writer = CodeWriter.new(output)
     code_writer.write_arithmetic("not")
     expected = <<~EOF
+      @SP
       A=M-1
       M=!M
     EOF
