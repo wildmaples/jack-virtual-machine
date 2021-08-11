@@ -39,3 +39,4 @@ add
 push constant 112
 sub
 neg
+and
