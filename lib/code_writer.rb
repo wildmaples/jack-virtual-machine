@@ -24,10 +24,11 @@ class CodeWriter
   }
 
   def write_arithmetic(command)
-    if command == "neg"
+    if command == "neg" or command == "not"
+      operation = command == "neg" ? "-" : "!"
       @out.puts <<~EOF
         A=M-1
-        M=-M
+        M=#{operation}M
       EOF
     elsif COMMAND_TO_OPERATION_HASH.key?(command)
       @out.puts <<~EOF
