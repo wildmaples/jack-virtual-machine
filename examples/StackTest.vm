@@ -40,3 +40,4 @@ push constant 112
 sub
 neg
 and
+push constant 82
