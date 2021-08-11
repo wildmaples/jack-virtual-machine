@@ -25,7 +25,7 @@ class CodeWriter
         A=A-1
         M=M#{operation}D
       EOF
-    elsif command == "eq" or command == "lt"
+    elsif command == "eq" or command == "lt" or command == "gt"
       @out.puts <<~EOF
         AM=M-1
         D=M
