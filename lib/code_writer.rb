@@ -19,7 +19,8 @@ class CodeWriter
   COMMAND_TO_OPERATION_HASH = {
     "add" => "+",
     "sub" => "-",
-    "and" => "&"
+    "and" => "&",
+    "or" => "|"
   }
 
   def write_arithmetic(command)
@@ -28,7 +29,7 @@ class CodeWriter
         A=M-1
         M=-M
       EOF
-    elsif command == "add" or command == "sub" or command == "and"
+    elsif COMMAND_TO_OPERATION_HASH.key?(command)
       @out.puts <<~EOF
         AM=M-1
         D=M

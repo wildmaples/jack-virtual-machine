@@ -282,4 +282,18 @@ class CodeWriterTest < Minitest::Test
 
     assert_equal(expected, output.string)
   end
+
+  def test_write_arithmetic_or
+    output = StringIO.new
+    code_writer = CodeWriter.new(output)
+    code_writer.write_arithmetic("or")
+    expected = <<~EOF
+      AM=M-1
+      D=M
+      A=A-1
+      M=M|D
+    EOF
+
+    assert_equal(expected, output.string)
+  end
 end
