@@ -26,3 +26,9 @@ lt
 push constant 32767
 push constant 32766
 gt
+push constant 32766
+push constant 32767
+gt
+push constant 32766
+push constant 32766
+gt
