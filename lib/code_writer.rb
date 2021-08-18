@@ -16,16 +16,32 @@ class CodeWriter
     EOF
   end
 
+  COMMAND_TO_OPERATION_HASH = {
+    "add" => "+",
+    "sub" => "-",
+    "and" => "&",
+    "or" => "|"
+  }
+
   def write_arithmetic(command)
-    if command == "add" or command == "sub"
-      operation = command == "add" ? "+" : "-"
+    @out.puts <<~EOF
+      @SP
+    EOF
+    
+    if command == "neg" or command == "not"
+      operation = command == "neg" ? "-" : "!"
+      @out.puts <<~EOF
+        A=M-1
+        M=#{operation}M
+      EOF
+    elsif COMMAND_TO_OPERATION_HASH.key?(command)
       @out.puts <<~EOF
         AM=M-1
         D=M
         A=A-1
-        M=M#{operation}D
+        M=M#{COMMAND_TO_OPERATION_HASH[command]}D
       EOF
-    elsif command == "eq" or command == "lt"
+    elsif command == "eq" or command == "lt" or command == "gt"
       @out.puts <<~EOF
         AM=M-1
         D=M

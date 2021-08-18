@@ -49,6 +49,7 @@ class CodeWriterTest < Minitest::Test
     code_writer = CodeWriter.new(output)
     code_writer.write_arithmetic("add")
     expected = <<~EOF
+      @SP
       AM=M-1
       D=M
       A=A-1
@@ -63,6 +64,7 @@ class CodeWriterTest < Minitest::Test
     code_writer = CodeWriter.new(output)
     code_writer.write_arithmetic("sub")
     expected = <<~EOF
+      @SP
       AM=M-1
       D=M
       A=A-1
@@ -77,6 +79,7 @@ class CodeWriterTest < Minitest::Test
     code_writer = CodeWriter.new(output)
     code_writer.write_arithmetic("eq")
     expected = <<~EOF
+      @SP
       AM=M-1
       D=M
       A=A-1
@@ -107,6 +110,7 @@ class CodeWriterTest < Minitest::Test
     code_writer.write_arithmetic("eq")
     code_writer.write_arithmetic("eq")
     expected = <<~EOF
+      @SP
       AM=M-1
       D=M
       A=A-1
@@ -126,6 +130,7 @@ class CodeWriterTest < Minitest::Test
       A=M-1
       M=-1
       (END0)
+      @SP
       AM=M-1
       D=M
       A=A-1
@@ -155,6 +160,7 @@ class CodeWriterTest < Minitest::Test
     code_writer = CodeWriter.new(output)
     code_writer.write_arithmetic("lt")
     expected = <<~EOF
+      @SP
       AM=M-1
       D=M
       A=A-1
@@ -185,6 +191,7 @@ class CodeWriterTest < Minitest::Test
     code_writer.write_arithmetic("lt")
     code_writer.write_arithmetic("lt")
     expected = <<~EOF
+      @SP
       AM=M-1
       D=M
       A=A-1
@@ -204,6 +211,7 @@ class CodeWriterTest < Minitest::Test
       A=M-1
       M=-1
       (END0)
+      @SP
       AM=M-1
       D=M
       A=A-1
@@ -223,6 +231,92 @@ class CodeWriterTest < Minitest::Test
       A=M-1
       M=-1
       (END1)
+    EOF
+
+    assert_equal(expected, output.string)
+  end
+
+  def test_write_arithmetic_gt
+    output = StringIO.new
+    code_writer = CodeWriter.new(output)
+    code_writer.write_arithmetic("gt")
+    expected = <<~EOF
+      @SP
+      AM=M-1
+      D=M
+      A=A-1
+
+      D=M-D
+      @IFTRUE0
+      D;JGT
+
+      @SP
+      A=M-1
+      M=0
+      @END0
+      0;JMP
+
+      (IFTRUE0)
+      @SP
+      A=M-1
+      M=-1
+      (END0)
+    EOF
+
+    assert_equal(expected, output.string)
+  end
+
+  def test_write_arithmetic_neg
+    output = StringIO.new
+    code_writer = CodeWriter.new(output)
+    code_writer.write_arithmetic("neg")
+    expected = <<~EOF
+      @SP
+      A=M-1
+      M=-M
+    EOF
+
+    assert_equal(expected, output.string)
+  end
+
+  def test_write_arithmetic_and
+    output = StringIO.new
+    code_writer = CodeWriter.new(output)
+    code_writer.write_arithmetic("and")
+    expected = <<~EOF
+      @SP
+      AM=M-1
+      D=M
+      A=A-1
+      M=M&D
+    EOF
+
+    assert_equal(expected, output.string)
+  end
+
+  def test_write_arithmetic_or
+    output = StringIO.new
+    code_writer = CodeWriter.new(output)
+    code_writer.write_arithmetic("or")
+    expected = <<~EOF
+      @SP
+      AM=M-1
+      D=M
+      A=A-1
+      M=M|D
+    EOF
+
+    assert_equal(expected, output.string)
+  end
+
+  def test_write_arithmetic_not
+    output = StringIO.new
+    code_writer = CodeWriter.new(output)
+    code_writer.write_arithmetic("not")
+    expected = <<~EOF
+      @SP
+      A=M-1
+      M=!M
     EOF
 
     assert_equal(expected, output.string)
