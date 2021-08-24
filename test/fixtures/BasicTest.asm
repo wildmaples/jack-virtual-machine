@@ -22,3 +22,17 @@ D=M
 @R14
 A=M
 M=D
+@21
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@22
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
