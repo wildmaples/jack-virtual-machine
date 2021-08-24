@@ -117,4 +117,20 @@ class ParserTest < Minitest::Test
     parser.advance
     assert_equal(:C_POP, parser.command_type)
   end
+
+  def test_arg1_for_pop_command
+    input_file = StringIO.new("pop local 0")
+    parser = Parser.new(input_file)
+
+    parser.advance
+    assert_equal("local", parser.arg1)
+  end
+
+  def test_arg2_for_pop_command
+    input_file = StringIO.new("pop local 0")
+    parser = Parser.new(input_file)
+
+    parser.advance
+    assert_equal(0, parser.arg2)
+  end
 end
