@@ -21,6 +21,8 @@ class Parser
   def command_type
     if @command.start_with?("push")
       :C_PUSH
+    elsif @command.start_with?("pop")
+      :C_POP
     else
       :C_ARITHMETIC
     end
