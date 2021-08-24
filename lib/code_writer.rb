@@ -4,6 +4,11 @@ class CodeWriter
     @label_counter = 0
   end
 
+  SEGMENT_TO_SYMBOL_HASH = {
+    "argument" => "ARG",
+    "local" => "LCL",
+  }
+
   def write_push_pop(command, segment, index)
     if command == :C_POP
       @out.puts <<~EOF
@@ -14,7 +19,7 @@ class CodeWriter
         M=D
         @#{index}
         D=A
-        @LCL
+        @#{SEGMENT_TO_SYMBOL_HASH[segment]}
         A=M+D
         D=A
         @R14
