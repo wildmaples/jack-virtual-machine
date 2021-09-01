@@ -21,13 +21,15 @@ class Parser
   def command_type
     if @command.start_with?("push")
       :C_PUSH
+    elsif @command.start_with?("pop")
+      :C_POP
     else
       :C_ARITHMETIC
     end
   end
 
   def arg1
-    if command_type == :C_PUSH
+    if [:C_PUSH, :C_POP].include?(command_type)
       @command.split[1]
     else
       @command

@@ -321,4 +321,58 @@ class CodeWriterTest < Minitest::Test
 
     assert_equal(expected, output.string)
   end
+
+  def test_write_push_pop_writes_C_POP_to_output
+    output = StringIO.new
+    code_writer = CodeWriter.new(output)
+    code_writer.write_push_pop(:C_POP, "local", 123)
+    expected = <<~EOF
+      @SP
+      AM=M-1
+      D=M
+      @R13
+      M=D
+      @123
+      D=A
+      @LCL
+      A=M+D
+      D=A
+      @R14
+      M=D
+      @R13
+      D=M
+      @R14
+      A=M
+      M=D
+    EOF
+
+    assert_equal(expected, output.string)
+  end
+
+  def test_write_push_pop_writes_C_POP_argument_to_output
+    output = StringIO.new
+    code_writer = CodeWriter.new(output)
+    code_writer.write_push_pop(:C_POP, "argument", 123)
+    expected = <<~EOF
+      @SP
+      AM=M-1
+      D=M
+      @R13
+      M=D
+      @123
+      D=A
+      @ARG
+      A=M+D
+      D=A
+      @R14
+      M=D
+      @R13
+      D=M
+      @R14
+      A=M
+      M=D
+    EOF
+
+    assert_equal(expected, output.string)
+  end
 end

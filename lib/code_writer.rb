@@ -4,16 +4,43 @@ class CodeWriter
     @label_counter = 0
   end
 
+  SEGMENT_TO_SYMBOL_HASH = {
+    "argument" => "ARG",
+    "local" => "LCL",
+  }
+
   def write_push_pop(command, segment, index)
-    @out.puts <<~EOF
-      @#{index}
-      D=A
-      @SP
-      A=M
-      M=D
-      @SP
-      M=M+1
-    EOF
+    if command == :C_POP
+      @out.puts <<~EOF
+        @SP
+        AM=M-1
+        D=M
+        @R13
+        M=D
+        @#{index}
+        D=A
+        @#{SEGMENT_TO_SYMBOL_HASH[segment]}
+        A=M+D
+        D=A
+        @R14
+        M=D
+        @R13
+        D=M
+        @R14
+        A=M
+        M=D
+      EOF
+    else
+      @out.puts <<~EOF
+        @#{index}
+        D=A
+        @SP
+        A=M
+        M=D
+        @SP
+        M=M+1
+      EOF
+    end
   end
 
   COMMAND_TO_OPERATION_HASH = {
@@ -27,7 +54,7 @@ class CodeWriter
     @out.puts <<~EOF
       @SP
     EOF
-    
+
     if command == "neg" or command == "not"
       operation = command == "neg" ? "-" : "!"
       @out.puts <<~EOF
