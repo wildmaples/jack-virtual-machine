@@ -29,7 +29,7 @@ class Parser
   end
 
   def arg1
-    if command_type == :C_PUSH || command_type == :C_POP
+    if [:C_PUSH, :C_POP].include?(command_type)
       @command.split[1]
     else
       @command
