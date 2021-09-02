@@ -11,25 +11,44 @@ class CodeWriter
 
   def write_push_pop(command, segment, index)
     if command == :C_POP
-      @out.puts <<~EOF
-        @SP
-        AM=M-1
-        D=M
-        @R13
-        M=D
-        @#{index}
-        D=A
-        @#{SEGMENT_TO_SYMBOL_HASH[segment]}
-        A=M+D
-        D=A
-        @R14
-        M=D
-        @R13
-        D=M
-        @R14
-        A=M
-        M=D
-      EOF
+      if segment == "temp"
+        @out.puts <<~EOF
+          @SP
+          AM=M-1
+          D=M
+          @R13
+          M=D
+          @11
+          D=A
+          @R14
+          M=D
+          @R13
+          D=M
+          @R14
+          A=M
+          M=D
+        EOF
+      else
+        @out.puts <<~EOF
+          @SP
+          AM=M-1
+          D=M
+          @R13
+          M=D
+          @#{index}
+          D=A
+          @#{SEGMENT_TO_SYMBOL_HASH[segment]}
+          A=M+D
+          D=A
+          @R14
+          M=D
+          @R13
+          D=M
+          @R14
+          A=M
+          M=D
+        EOF
+      end
     else
       @out.puts <<~EOF
         @#{index}

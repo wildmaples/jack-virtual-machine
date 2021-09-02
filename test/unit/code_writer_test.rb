@@ -375,4 +375,28 @@ class CodeWriterTest < Minitest::Test
 
     assert_equal(expected, output.string)
   end
+
+  def test_write_push_pop_writes_C_POP_temp_to_output
+    output = StringIO.new
+    code_writer = CodeWriter.new(output)
+    code_writer.write_push_pop(:C_POP, "temp", 6)
+    expected = <<~EOF
+      @SP
+      AM=M-1
+      D=M
+      @R13
+      M=D
+      @11
+      D=A
+      @R14
+      M=D
+      @R13
+      D=M
+      @R14
+      A=M
+      M=D
+    EOF
+
+    assert_equal(expected, output.string)
+  end
 end

@@ -53,3 +53,17 @@ D=M
 @R14
 A=M
 M=D
+@SP
+AM=M-1
+D=M
+@R13
+M=D
+@11
+D=A
+@R14
+M=D
+@R13
+D=M
+@R14
+A=M
+M=D
