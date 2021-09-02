@@ -11,4 +11,10 @@ push constant 22
 pop argument 2
 pop argument 1
 push constant 36
+pop this 6
+push constant 42
+push constant 45
+pop that 5
+pop that 2
+push constant 510
 pop temp 6 // Note: this command is not in the same order as the original BasicTest.vm

@@ -7,6 +7,8 @@ class CodeWriter
   SEGMENT_TO_SYMBOL_HASH = {
     "argument" => "ARG",
     "local" => "LCL",
+    "this" => "THIS",
+    "that" => "THAT",
   }
 
   def write_push_pop(command, segment, index)
