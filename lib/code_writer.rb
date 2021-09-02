@@ -18,7 +18,7 @@ class CodeWriter
           D=M
           @R13
           M=D
-          @11
+          @#{5 + index}
           D=A
           @R14
           M=D
