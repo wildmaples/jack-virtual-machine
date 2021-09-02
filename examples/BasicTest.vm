@@ -17,4 +17,4 @@ push constant 45
 pop that 5
 pop that 2
 push constant 510
-pop temp 6 // Note: this command is not in the same order as the original BasicTest.vm
+pop temp 6
