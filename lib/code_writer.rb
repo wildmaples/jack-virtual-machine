@@ -7,20 +7,30 @@ class CodeWriter
   SEGMENT_TO_SYMBOL_HASH = {
     "argument" => "ARG",
     "local" => "LCL",
+    "this" => "THIS",
+    "that" => "THAT",
   }
 
   def write_push_pop(command, segment, index)
     if command == :C_POP
+      if segment == "temp"
+        final_memory_address = "@#{5+index}"
+      else
+        final_memory_address = <<~EOF
+          @#{index}
+          D=A
+          @#{SEGMENT_TO_SYMBOL_HASH[segment]}
+          A=M+D
+        EOF
+      end
+
       @out.puts <<~EOF
         @SP
         AM=M-1
         D=M
         @R13
         M=D
-        @#{index}
-        D=A
-        @#{SEGMENT_TO_SYMBOL_HASH[segment]}
-        A=M+D
+        #{final_memory_address.chomp}
         D=A
         @R14
         M=D
@@ -30,6 +40,7 @@ class CodeWriter
         A=M
         M=D
       EOF
+
     else
       @out.puts <<~EOF
         @#{index}
