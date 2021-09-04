@@ -163,3 +163,13 @@ D=M
 @R14
 A=M
 M=D
+@0
+D=A
+@LCL
+A=M+D
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
