@@ -14,3 +14,9 @@ pop this 2
 push constant 46
 pop that 6
 push pointer 0
+push pointer 1
+add
+push this 2
+sub
+push that 6
+add
