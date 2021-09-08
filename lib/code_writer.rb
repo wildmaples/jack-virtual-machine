@@ -42,9 +42,22 @@ class CodeWriter
       EOF
 
     else
+      if segment == "temp"
+        final_memory_address = "@#{5+index}\nD=M"
+      elsif SEGMENT_TO_SYMBOL_HASH.key?(segment)
+        final_memory_address = <<~EOF
+          @#{index}
+          D=A
+          @#{SEGMENT_TO_SYMBOL_HASH[segment]}
+          A=M+D
+          D=M
+        EOF
+      else
+        final_memory_address = "@#{index}\nD=A"
+      end
+
       @out.puts <<~EOF
-        @#{index}
-        D=A
+        #{final_memory_address.chomp}
         @SP
         A=M
         M=D
