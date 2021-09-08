@@ -30,4 +30,10 @@ class VMTranslatorIntegrationTest < Minitest::Test
     expected = File.read("test/fixtures/BasicTest.asm")
     assert_equal(expected, assembly_code)
   end
+
+  def test_integration_test_pointer_test
+    assembly_code = `bin/vm-translator examples/PointerTest.vm`
+    expected = File.read("test/fixtures/PointerTest.asm")
+    assert_equal(expected, assembly_code)
+  end
 end

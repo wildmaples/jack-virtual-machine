@@ -13,8 +13,9 @@ class CodeWriter
 
   def write_push_pop(command, segment, index)
     if command == :C_POP
-      if segment == "temp"
-        final_memory_address = "@#{5+index}"
+      if segment == "temp" || segment == "pointer"
+        starting_index = segment == "temp" ? 5 : 3
+        final_memory_address = "@#{starting_index + index}"
       else
         final_memory_address = <<~EOF
           @#{index}
