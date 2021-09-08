@@ -43,8 +43,9 @@ class CodeWriter
       EOF
 
     else
-      if segment == "temp"
-        final_memory_address = "@#{5+index}\nD=M"
+      if ["temp", "pointer"].include?(segment)
+        starting_index = segment == "temp" ? 5 : 3
+        final_memory_address = "@#{starting_index + index}\nD=M"
       elsif SEGMENT_TO_SYMBOL_HASH.key?(segment)
         final_memory_address = <<~EOF
           @#{index}
