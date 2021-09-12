@@ -13,7 +13,8 @@ class CodeWriter
 
   def write_push_pop(command, segment, index)
     if command == :C_POP
-      if segment == "temp" || segment == "pointer"
+      case segment
+      when "temp", "pointer"
         starting_index = segment == "temp" ? 5 : 3
         final_memory_address = "@#{starting_index + index}"
       else
@@ -43,10 +44,11 @@ class CodeWriter
       EOF
 
     else
-      if ["temp", "pointer"].include?(segment)
+      case segment
+      when "temp", "pointer"
         starting_index = segment == "temp" ? 5 : 3
         final_memory_address = "@#{starting_index + index}\nD=M"
-      elsif SEGMENT_TO_SYMBOL_HASH.key?(segment)
+      when "argument", "local", "this", "that"
         final_memory_address = <<~EOF
           @#{index}
           D=A
