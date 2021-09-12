@@ -31,24 +31,8 @@ class CodeWriter
       EOF
 
     else
-      case segment
-      when "temp", "pointer"
-        starting_index = segment == "temp" ? 5 : 3
-        get_value = "@#{starting_index + index}\nD=M"
-      when "argument", "local", "this", "that"
-        get_value = <<~EOF
-          @#{index}
-          D=A
-          @#{SEGMENT_TO_SYMBOL_HASH[segment]}
-          A=M+D
-          D=M
-        EOF
-      else
-        get_value = "@#{index}\nD=A"
-      end
-
       @out.puts <<~EOF
-        #{get_value.chomp}
+        #{get_value_for_push(segment, index).chomp}
         @SP
         A=M
         M=D
@@ -127,6 +111,24 @@ class CodeWriter
         @#{SEGMENT_TO_SYMBOL_HASH[segment]}
         A=M+D
       EOF
+    end
+  end
+
+  def get_value_for_push(segment, index)
+    case segment
+    when "temp", "pointer"
+      starting_index = segment == "temp" ? 5 : 3
+      "@#{starting_index + index}\nD=M"
+    when "argument", "local", "this", "that"
+      <<~EOF
+        @#{index}
+        D=A
+        @#{SEGMENT_TO_SYMBOL_HASH[segment]}
+        A=M+D
+        D=M
+      EOF
+    else
+      "@#{index}\nD=A"
     end
   end
 end
