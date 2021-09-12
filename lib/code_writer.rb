@@ -12,7 +12,8 @@ class CodeWriter
   }
 
   def write_push_pop(command, segment, index)
-    if command == :C_POP
+    case command
+    when :C_POP
       @out.puts <<~EOF
         @SP
         AM=M-1
@@ -30,7 +31,7 @@ class CodeWriter
         M=D
       EOF
 
-    else
+    when :C_PUSH
       @out.puts <<~EOF
         #{get_value_for_push(segment, index).chomp}
         @SP
