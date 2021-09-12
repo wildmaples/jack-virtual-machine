@@ -47,9 +47,9 @@ class CodeWriter
       case segment
       when "temp", "pointer"
         starting_index = segment == "temp" ? 5 : 3
-        final_memory_address = "@#{starting_index + index}\nD=M"
+        get_value = "@#{starting_index + index}\nD=M"
       when "argument", "local", "this", "that"
-        final_memory_address = <<~EOF
+        get_value = <<~EOF
           @#{index}
           D=A
           @#{SEGMENT_TO_SYMBOL_HASH[segment]}
@@ -57,11 +57,11 @@ class CodeWriter
           D=M
         EOF
       else
-        final_memory_address = "@#{index}\nD=A"
+        get_value = "@#{index}\nD=A"
       end
 
       @out.puts <<~EOF
-        #{final_memory_address.chomp}
+        #{get_value.chomp}
         @SP
         A=M
         M=D
