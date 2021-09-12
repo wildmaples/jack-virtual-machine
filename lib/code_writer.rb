@@ -13,26 +13,13 @@ class CodeWriter
 
   def write_push_pop(command, segment, index)
     if command == :C_POP
-      case segment
-      when "temp", "pointer"
-        starting_index = segment == "temp" ? 5 : 3
-        final_memory_address = "@#{starting_index + index}"
-      else
-        final_memory_address = <<~EOF
-          @#{index}
-          D=A
-          @#{SEGMENT_TO_SYMBOL_HASH[segment]}
-          A=M+D
-        EOF
-      end
-
       @out.puts <<~EOF
         @SP
         AM=M-1
         D=M
         @R13
         M=D
-        #{final_memory_address.chomp}
+        #{get_final_memory_address_for_pop(segment, index).chomp}
         D=A
         @R14
         M=D
@@ -124,5 +111,22 @@ class CodeWriter
 
   def close
     @out.close
+  end
+
+  private
+
+  def get_final_memory_address_for_pop(segment, index)
+    case segment
+    when "temp", "pointer"
+      starting_index = segment == "temp" ? 5 : 3
+      "@#{starting_index + index}"
+    else
+      <<~EOF
+        @#{index}
+        D=A
+        @#{SEGMENT_TO_SYMBOL_HASH[segment]}
+        A=M+D
+      EOF
+    end
   end
 end
