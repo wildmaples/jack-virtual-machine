@@ -128,7 +128,7 @@ class CodeWriter
         A=M+D
         D=M
       EOF
-    else
+    when "constant"
       "@#{index}\nD=A"
     end
   end
