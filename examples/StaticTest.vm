@@ -7,3 +7,4 @@
 push constant 111
 push constant 333
 push constant 888
+pop static 8

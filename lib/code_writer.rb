@@ -14,6 +14,7 @@ class CodeWriter
   STATIC_SEGMENT_BASE_ADDRESS = {
     "temp" => 5,
     "pointer" => 3,
+    "static" => 16,
   }
 
   def write_push_pop(command, segment, index)
