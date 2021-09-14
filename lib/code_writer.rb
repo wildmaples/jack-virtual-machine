@@ -4,7 +4,7 @@ class CodeWriter
     @label_counter = 0
   end
 
-  SEGMENT_TO_SYMBOL_HASH = {
+  DYNAMIC_SEGMENT_BASE_ADDRESS = {
     "argument" => "ARG",
     "local" => "LCL",
     "this" => "THIS",
@@ -105,11 +105,11 @@ class CodeWriter
     when "temp", "pointer"
       starting_index = segment == "temp" ? 5 : 3
       "@#{starting_index + index}"
-    when *SEGMENT_TO_SYMBOL_HASH.keys
+    when *DYNAMIC_SEGMENT_BASE_ADDRESS.keys
        <<~EOF.chomp
         @#{index}
         D=A
-        @#{SEGMENT_TO_SYMBOL_HASH[segment]}
+        @#{DYNAMIC_SEGMENT_BASE_ADDRESS[segment]}
         A=M+D
       EOF
     end
@@ -120,11 +120,11 @@ class CodeWriter
     when "temp", "pointer"
       starting_index = segment == "temp" ? 5 : 3
       "@#{starting_index + index}\nD=M"
-    when *SEGMENT_TO_SYMBOL_HASH.keys
+    when *DYNAMIC_SEGMENT_BASE_ADDRESS.keys
       <<~EOF.chomp
         @#{index}
         D=A
-        @#{SEGMENT_TO_SYMBOL_HASH[segment]}
+        @#{DYNAMIC_SEGMENT_BASE_ADDRESS[segment]}
         A=M+D
         D=M
       EOF
