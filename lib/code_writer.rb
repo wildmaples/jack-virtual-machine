@@ -20,7 +20,7 @@ class CodeWriter
         D=M
         @R13
         M=D
-        #{get_memory_address_for_pop(segment, index).chomp}
+        #{get_memory_address_for_pop(segment, index)}
         D=A
         @R14
         M=D
@@ -33,7 +33,7 @@ class CodeWriter
 
     when :C_PUSH
       @out.puts <<~EOF
-        #{get_value_for_push(segment, index).chomp}
+        #{get_value_for_push(segment, index)}
         @SP
         A=M
         M=D
@@ -106,7 +106,7 @@ class CodeWriter
       starting_index = segment == "temp" ? 5 : 3
       "@#{starting_index + index}"
     when *SEGMENT_TO_SYMBOL_HASH.keys
-       <<~EOF
+       <<~EOF.chomp
         @#{index}
         D=A
         @#{SEGMENT_TO_SYMBOL_HASH[segment]}
@@ -121,7 +121,7 @@ class CodeWriter
       starting_index = segment == "temp" ? 5 : 3
       "@#{starting_index + index}\nD=M"
     when *SEGMENT_TO_SYMBOL_HASH.keys
-      <<~EOF
+      <<~EOF.chomp
         @#{index}
         D=A
         @#{SEGMENT_TO_SYMBOL_HASH[segment]}
