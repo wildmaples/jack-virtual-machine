@@ -20,7 +20,7 @@ class CodeWriter
         D=M
         @R13
         M=D
-        #{get_final_memory_address_for_pop(segment, index).chomp}
+        #{get_memory_address_for_pop(segment, index).chomp}
         D=A
         @R14
         M=D
@@ -100,7 +100,7 @@ class CodeWriter
 
   private
 
-  def get_final_memory_address_for_pop(segment, index)
+  def get_memory_address_for_pop(segment, index)
     case segment
     when "temp", "pointer"
       starting_index = segment == "temp" ? 5 : 3
