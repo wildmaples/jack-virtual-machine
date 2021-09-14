@@ -11,6 +11,11 @@ class CodeWriter
     "that" => "THAT",
   }
 
+  STATIC_SEGMENT_BASE_ADDRESS = {
+    "temp" => 5,
+    "pointer" => 3,
+  }
+
   def write_push_pop(command, segment, index)
     case command
     when :C_POP
@@ -102,9 +107,8 @@ class CodeWriter
 
   def get_memory_address_for_pop(segment, index)
     case segment
-    when "temp", "pointer"
-      starting_index = segment == "temp" ? 5 : 3
-      "@#{starting_index + index}"
+    when *STATIC_SEGMENT_BASE_ADDRESS.keys
+      "@#{STATIC_SEGMENT_BASE_ADDRESS[segment] + index}"
     when *DYNAMIC_SEGMENT_BASE_ADDRESS.keys
        <<~EOF.chomp
         @#{index}
@@ -117,9 +121,8 @@ class CodeWriter
 
   def get_value_for_push(segment, index)
     case segment
-    when "temp", "pointer"
-      starting_index = segment == "temp" ? 5 : 3
-      "@#{starting_index + index}\nD=M"
+    when *STATIC_SEGMENT_BASE_ADDRESS.keys
+      "@#{STATIC_SEGMENT_BASE_ADDRESS[segment] + index}\nD=M"
     when *DYNAMIC_SEGMENT_BASE_ADDRESS.keys
       <<~EOF.chomp
         @#{index}
