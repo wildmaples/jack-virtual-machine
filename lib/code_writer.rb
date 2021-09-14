@@ -105,8 +105,8 @@ class CodeWriter
     when "temp", "pointer"
       starting_index = segment == "temp" ? 5 : 3
       "@#{starting_index + index}"
-    else
-      <<~EOF
+    when *SEGMENT_TO_SYMBOL_HASH.keys
+       <<~EOF
         @#{index}
         D=A
         @#{SEGMENT_TO_SYMBOL_HASH[segment]}
@@ -120,7 +120,7 @@ class CodeWriter
     when "temp", "pointer"
       starting_index = segment == "temp" ? 5 : 3
       "@#{starting_index + index}\nD=M"
-    when "argument", "local", "this", "that"
+    when *SEGMENT_TO_SYMBOL_HASH.keys
       <<~EOF
         @#{index}
         D=A
