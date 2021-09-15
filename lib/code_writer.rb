@@ -25,7 +25,7 @@ class CodeWriter
         D=M
         @R13
         M=D
-        #{get_memory_address_for_pop(segment, index)}
+        #{get_address_for_pop(segment, index)}
         D=A
         @R14
         M=D
@@ -105,7 +105,7 @@ class CodeWriter
 
   private
 
-  def get_memory_address_for_pop(segment, index)
+  def get_address_for_pop(segment, index)
     case segment
     when *STATIC_SEGMENT_BASE_ADDRESS.keys
       "@#{STATIC_SEGMENT_BASE_ADDRESS[segment] + index}"
