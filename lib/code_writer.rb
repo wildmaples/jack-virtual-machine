@@ -4,33 +4,28 @@ class CodeWriter
     @label_counter = 0
   end
 
-  SEGMENT_TO_SYMBOL_HASH = {
+  DYNAMIC_SEGMENT_POINTER_ADDRESS = {
     "argument" => "ARG",
     "local" => "LCL",
     "this" => "THIS",
     "that" => "THAT",
   }
 
-  def write_push_pop(command, segment, index)
-    if command == :C_POP
-      if segment == "temp"
-        final_memory_address = "@#{5+index}"
-      else
-        final_memory_address = <<~EOF
-          @#{index}
-          D=A
-          @#{SEGMENT_TO_SYMBOL_HASH[segment]}
-          A=M+D
-        EOF
-      end
+  STATIC_SEGMENT_BASE_ADDRESS = {
+    "temp" => 5,
+    "pointer" => 3,
+  }
 
+  def write_push_pop(command, segment, index)
+    case command
+    when :C_POP
       @out.puts <<~EOF
         @SP
         AM=M-1
         D=M
         @R13
         M=D
-        #{final_memory_address.chomp}
+        #{get_address_for_pop(segment, index)}
         D=A
         @R14
         M=D
@@ -41,23 +36,9 @@ class CodeWriter
         M=D
       EOF
 
-    else
-      if segment == "temp"
-        final_memory_address = "@#{5+index}\nD=M"
-      elsif SEGMENT_TO_SYMBOL_HASH.key?(segment)
-        final_memory_address = <<~EOF
-          @#{index}
-          D=A
-          @#{SEGMENT_TO_SYMBOL_HASH[segment]}
-          A=M+D
-          D=M
-        EOF
-      else
-        final_memory_address = "@#{index}\nD=A"
-      end
-
+    when :C_PUSH
       @out.puts <<~EOF
-        #{final_memory_address.chomp}
+        #{get_value_for_push(segment, index)}
         @SP
         A=M
         M=D
@@ -120,5 +101,38 @@ class CodeWriter
 
   def close
     @out.close
+  end
+
+  private
+
+  def get_address_for_pop(segment, index)
+    case segment
+    when *STATIC_SEGMENT_BASE_ADDRESS.keys
+      "@#{STATIC_SEGMENT_BASE_ADDRESS[segment] + index}"
+    when *DYNAMIC_SEGMENT_POINTER_ADDRESS.keys
+      <<~EOF.chomp
+        @#{index}
+        D=A
+        @#{DYNAMIC_SEGMENT_POINTER_ADDRESS[segment]}
+        A=M+D
+      EOF
+    end
+  end
+
+  def get_value_for_push(segment, index)
+    case segment
+    when *STATIC_SEGMENT_BASE_ADDRESS.keys
+      "@#{STATIC_SEGMENT_BASE_ADDRESS[segment] + index}\nD=M"
+    when *DYNAMIC_SEGMENT_POINTER_ADDRESS.keys
+      <<~EOF.chomp
+        @#{index}
+        D=A
+        @#{DYNAMIC_SEGMENT_POINTER_ADDRESS[segment]}
+        A=M+D
+        D=M
+      EOF
+    when "constant"
+      "@#{index}\nD=A"
+    end
   end
 end
