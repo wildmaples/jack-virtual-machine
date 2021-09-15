@@ -110,7 +110,7 @@ class CodeWriter
     when *STATIC_SEGMENT_BASE_ADDRESS.keys
       "@#{STATIC_SEGMENT_BASE_ADDRESS[segment] + index}"
     when *DYNAMIC_SEGMENT_BASE_ADDRESS.keys
-       <<~EOF.chomp
+      <<~EOF.chomp
         @#{index}
         D=A
         @#{DYNAMIC_SEGMENT_BASE_ADDRESS[segment]}
