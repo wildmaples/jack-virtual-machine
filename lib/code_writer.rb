@@ -4,7 +4,7 @@ class CodeWriter
     @label_counter = 0
   end
 
-  DYNAMIC_SEGMENT_BASE_ADDRESS = {
+  DYNAMIC_SEGMENT_POINTER_ADDRESS = {
     "argument" => "ARG",
     "local" => "LCL",
     "this" => "THIS",
@@ -109,11 +109,11 @@ class CodeWriter
     case segment
     when *STATIC_SEGMENT_BASE_ADDRESS.keys
       "@#{STATIC_SEGMENT_BASE_ADDRESS[segment] + index}"
-    when *DYNAMIC_SEGMENT_BASE_ADDRESS.keys
+    when *DYNAMIC_SEGMENT_POINTER_ADDRESS.keys
       <<~EOF.chomp
         @#{index}
         D=A
-        @#{DYNAMIC_SEGMENT_BASE_ADDRESS[segment]}
+        @#{DYNAMIC_SEGMENT_POINTER_ADDRESS[segment]}
         A=M+D
       EOF
     end
@@ -123,11 +123,11 @@ class CodeWriter
     case segment
     when *STATIC_SEGMENT_BASE_ADDRESS.keys
       "@#{STATIC_SEGMENT_BASE_ADDRESS[segment] + index}\nD=M"
-    when *DYNAMIC_SEGMENT_BASE_ADDRESS.keys
+    when *DYNAMIC_SEGMENT_POINTER_ADDRESS.keys
       <<~EOF.chomp
         @#{index}
         D=A
-        @#{DYNAMIC_SEGMENT_BASE_ADDRESS[segment]}
+        @#{DYNAMIC_SEGMENT_POINTER_ADDRESS[segment]}
         A=M+D
         D=M
       EOF
