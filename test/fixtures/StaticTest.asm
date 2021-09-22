@@ -24,7 +24,7 @@ AM=M-1
 D=M
 @R13
 M=D
-@24
+@StaticTest.8
 D=A
 @R14
 M=D
@@ -38,7 +38,7 @@ AM=M-1
 D=M
 @R13
 M=D
-@19
+@StaticTest.3
 D=A
 @R14
 M=D
@@ -52,7 +52,7 @@ AM=M-1
 D=M
 @R13
 M=D
-@17
+@StaticTest.1
 D=A
 @R14
 M=D
@@ -61,14 +61,14 @@ D=M
 @R14
 A=M
 M=D
-@19
+@StaticTest.3
 D=M
 @SP
 A=M
 M=D
 @SP
 M=M+1
-@17
+@StaticTest.1
 D=M
 @SP
 A=M
@@ -80,7 +80,7 @@ AM=M-1
 D=M
 A=A-1
 M=M-D
-@24
+@StaticTest.8
 D=M
 @SP
 A=M
