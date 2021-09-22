@@ -135,6 +135,8 @@ class CodeWriter
       EOF
     when "constant"
       "@#{index}\nD=A"
+    when "static"
+      "@Foo.#{index}\nD=M"
     end
   end
 end
