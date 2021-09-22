@@ -4,6 +4,10 @@ class CodeWriter
     @label_counter = 0
   end
 
+  def set_file_name(file_name)
+    @file_name = file_name
+  end
+
   DYNAMIC_SEGMENT_POINTER_ADDRESS = {
     "argument" => "ARG",
     "local" => "LCL",
@@ -117,7 +121,7 @@ class CodeWriter
         A=M+D
       EOF
     when "static"
-      "@Foo.#{index}"
+      "@#{@file_name}.#{index}"
     end
   end
 
@@ -136,7 +140,7 @@ class CodeWriter
     when "constant"
       "@#{index}\nD=A"
     when "static"
-      "@Foo.#{index}\nD=M"
+      "@#{@file_name}.#{index}\nD=M"
     end
   end
 end

@@ -9,9 +9,9 @@ class VMTranslator
     @code_writer = CodeWriter.new(@out)
   end
 
-  def translate
+  def translate(file_name)
     parser = Parser.new(@input_file)
-
+    @code_writer.set_file_name(file_name)
     while parser.has_more_commands?
       parser.advance
       case parser.command_type

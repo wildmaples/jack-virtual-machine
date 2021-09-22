@@ -488,6 +488,7 @@ class CodeWriterTest < Minitest::Test
   def test_write_push_pop_writes_C_POP_static
     output = StringIO.new
     code_writer = CodeWriter.new(output)
+    code_writer.set_file_name("Foo")
     code_writer.write_push_pop(:C_POP, "static", 8)
     expected = <<~EOF
       @SP
@@ -512,9 +513,10 @@ class CodeWriterTest < Minitest::Test
   def test_write_push_pop_writes_C_PUSH_static
     output = StringIO.new
     code_writer = CodeWriter.new(output)
+    code_writer.set_file_name("Bar")
     code_writer.write_push_pop(:C_PUSH, "static", 8)
     expected = <<~EOF
-      @Foo.8
+      @Bar.8
       D=M
       @SP
       A=M
