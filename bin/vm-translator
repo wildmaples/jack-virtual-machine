@@ -3,4 +3,4 @@
 require_relative '../lib/vm_translator'
 
 input_file = File.open(ARGV[0])
-puts VMTranslator.new(input_file).translate(File.basename(ARGV[0], ".vm"))
+puts VMTranslator.new(input_file).translate
