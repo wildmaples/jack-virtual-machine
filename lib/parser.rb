@@ -25,13 +25,15 @@ class Parser
       :C_POP
     elsif @command.start_with?("label")
       :C_LABEL
+    elsif @command.start_with?("if-goto")
+      :C_IF
     else
       :C_ARITHMETIC
     end
   end
 
   def arg1
-    if [:C_PUSH, :C_POP, :C_LABEL].include?(command_type)
+    if [:C_PUSH, :C_POP, :C_LABEL, :C_IF].include?(command_type)
       @command.split[1]
     else
       @command
