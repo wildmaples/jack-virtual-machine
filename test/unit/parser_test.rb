@@ -133,4 +133,13 @@ class ParserTest < Minitest::Test
     parser.advance
     assert_equal(0, parser.arg2)
   end
+
+  def test_command_type_returns_label_command_and_arg1
+    input_file = StringIO.new("label LOOP_START")
+    parser = Parser.new(input_file)
+
+    parser.advance
+    assert_equal(:C_LABEL, parser.command_type)
+    assert_equal("LOOP_START", parser.arg1)
+  end
 end
