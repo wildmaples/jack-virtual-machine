@@ -33,10 +33,10 @@ class Parser
   end
 
   def arg1
-    if [:C_PUSH, :C_POP, :C_LABEL, :C_IF].include?(command_type)
-      @command.split[1]
-    else
+    if command_type == :C_ARITHMETIC
       @command
+    else
+      @command.split[1]
     end
   end
 
