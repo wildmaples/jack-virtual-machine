@@ -11,7 +11,9 @@ class VMTranslator
 
   def translate
     parser = Parser.new(@input_file)
+    file_name = File.basename(@input_file.path, ".vm")
 
+    @code_writer.set_file_name(file_name)
     while parser.has_more_commands?
       parser.advance
       case parser.command_type
