@@ -112,7 +112,7 @@ class CodeWriter
   end
 
   def write_label(label)
-    raise NotImplementedError
+    @out.puts "($#{label})\n"
   end
 
   def write_goto(label)
