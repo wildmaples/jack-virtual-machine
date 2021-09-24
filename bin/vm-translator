@@ -2,5 +2,9 @@
 
 require_relative '../lib/vm_translator'
 
-input_file = File.open(ARGV[0])
-puts VMTranslator.new(input_file).translate
+if File.file?(ARGV[0])
+  input_file = File.open(ARGV[0])
+  puts VMTranslator.new(input_file).translate
+else
+  raise ArgumentError.new("We can only translate a single .vm file at a time")
+end
