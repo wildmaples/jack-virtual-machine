@@ -120,7 +120,13 @@ class CodeWriter
   end
 
   def write_if(label)
-    raise NotImplementedError
+    @out.puts <<~EOF
+      @SP
+      AM=M-1
+      D=M
+      @$#{label}
+      D;JNE
+    EOF
   end
 
   def write_call(function_name, num_args)

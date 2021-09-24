@@ -536,4 +536,19 @@ class CodeWriterTest < Minitest::Test
 
     assert_equal(expected, output.string)
   end
+
+  def test_write_if_to_output
+    output = StringIO.new
+    code_writer = CodeWriter.new(output)
+    code_writer.write_if("LOOP_START")
+    expected = <<~EOF
+      @SP
+      AM=M-1
+      D=M
+      @$LOOP_START
+      D;JNE
+    EOF
+
+    assert_equal(expected, output.string)
+  end
 end
