@@ -107,6 +107,34 @@ class CodeWriter
     @out.close
   end
 
+  def write_init
+    raise NotImplementedError
+  end
+
+  def write_label(label)
+    raise NotImplementedError
+  end
+
+  def write_goto(label)
+    raise NotImplementedError
+  end
+
+  def write_if(label)
+    raise NotImplementedError
+  end
+
+  def write_call(function_name, num_args)
+    raise NotImplementedError
+  end
+
+  def write_return
+    raise NotImplementedError
+  end
+
+  def write_function(function_name, num_locals)
+    raise NotImplementedError
+  end
+
   private
 
   def get_address_for_pop(segment, index)
