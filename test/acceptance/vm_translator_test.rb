@@ -26,7 +26,10 @@ class VMTranslatorAcceptanceTest < Minitest::Test
 
       # run SimpleAdd.tst in the CPU emulator and remember its exit status
       test_script_path = File.join(temporary_directory, "SimpleAdd.tst")
-      cpu_emulator_exit_status = system(CPU_EMULATOR_PATH, test_script_path)
+      cpu_emulator_exit_status = nil
+      _cpu_emulator_output, _cpu_emulator_error = capture_subprocess_io do
+        cpu_emulator_exit_status = system(CPU_EMULATOR_PATH, test_script_path)
+      end
 
       # check that the exit status was `true` (i.e. success)
       assert(cpu_emulator_exit_status)
