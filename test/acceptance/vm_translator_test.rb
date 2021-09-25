@@ -31,6 +31,14 @@ class VMTranslatorAcceptanceTest < Minitest::Test
         cpu_emulator_exit_status = system(CPU_EMULATOR_PATH, test_script_path)
       end
 
+      # generate a diff between SimpleAdd.cmp and SimpleAdd.out
+      unless cpu_emulator_exit_status
+        expected_result, actual_result = ["cmp", "out"].map do |extension|
+          File.read(File.join(temporary_directory, "SimpleAdd.#{extension}"))
+        end
+        cpu_emulator_error << diff(expected_result, actual_result)
+      end
+
       # check that the exit status was `true` (i.e. success)
       assert(cpu_emulator_exit_status, cpu_emulator_error)
     end
