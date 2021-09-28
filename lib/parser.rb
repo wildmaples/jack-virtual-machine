@@ -18,15 +18,14 @@ class Parser
     @command = @lines.shift
   end
 
+  NON_ARITHMETIC_COMMANDS = ["push", "pop", "label", "if-goto"]
+
   def command_type
-    if @command.start_with?("push")
-      :C_PUSH
-    elsif @command.start_with?("pop")
-      :C_POP
-    elsif @command.start_with?("label")
-      :C_LABEL
-    elsif @command.start_with?("if-goto")
-      :C_IF
+    raw_command = @command.split[0]
+
+    case raw_command
+    when *NON_ARITHMETIC_COMMANDS
+      "C_#{raw_command.split("-")[0].upcase}".to_sym
     else
       :C_ARITHMETIC
     end
