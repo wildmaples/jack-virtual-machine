@@ -116,7 +116,10 @@ class CodeWriter
   end
 
   def write_goto(label)
-    raise NotImplementedError
+    @out.puts <<~EOF
+      @$#{label}
+      0;JMP
+    EOF
   end
 
   def write_if(label)
