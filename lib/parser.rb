@@ -18,7 +18,7 @@ class Parser
     @command = @lines.shift
   end
 
-  NON_ARITHMETIC_COMMANDS = ["push", "pop", "label", "if-goto"]
+  NON_ARITHMETIC_COMMANDS = ["push", "pop", "label", "if-goto", "goto"]
 
   def command_type
     raw_command = @command.split[0]
