@@ -563,4 +563,36 @@ class CodeWriterTest < Minitest::Test
 
     assert_equal(expected, output.string)
   end
+
+  def test_write_function_writes_to_output
+    output = StringIO.new
+    code_writer = CodeWriter.new(output)
+    code_writer.write_function("foo", 3)
+    expected = <<~EOF
+      (foo)
+      @0
+      D=A
+      @SP
+      A=M
+      M=D
+      @SP
+      M=M+1
+      @0
+      D=A
+      @SP
+      A=M
+      M=D
+      @SP
+      M=M+1
+      @0
+      D=A
+      @SP
+      A=M
+      M=D
+      @SP
+      M=M+1
+    EOF
+
+    assert_equal(expected, output.string)
+  end
 end

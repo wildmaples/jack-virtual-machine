@@ -141,7 +141,19 @@ class CodeWriter
   end
 
   def write_function(function_name, num_locals)
-    raise NotImplementedError
+    @out.puts "(#{function_name})\n"
+
+    num_locals.times do
+      @out.puts <<~EOF
+        @0
+        D=A
+        @SP
+        A=M
+        M=D
+        @SP
+        M=M+1
+      EOF
+    end
   end
 
   private
