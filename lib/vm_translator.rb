@@ -27,6 +27,10 @@ class VMTranslator
         @code_writer.write_goto(parser.arg1)
       when :C_ARITHMETIC
         @code_writer.write_arithmetic(parser.arg1)
+      when :C_FUNCTION
+        @code_writer.write_function(parser.arg1, parser.arg2)
+      when :C_RETURN
+        @code_writer.write_return
       else
         warn("Unknown command type passed into VMTranslator")
       end
