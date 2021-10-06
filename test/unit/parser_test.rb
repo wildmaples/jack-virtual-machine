@@ -160,4 +160,14 @@ class ParserTest < Minitest::Test
     assert_equal(:C_GOTO, parser.command_type)
     assert_equal("LOOP_START", parser.arg1)
   end
+
+  def test_command_type_returns_function_command_and_arg1_arg2
+    input_file = StringIO.new("function foo 3")
+    parser = Parser.new(input_file)
+
+    parser.advance
+    assert_equal(:C_FUNCTION, parser.command_type)
+    assert_equal("foo", parser.arg1)
+    assert_equal(3, parser.arg2)
+  end
 end
