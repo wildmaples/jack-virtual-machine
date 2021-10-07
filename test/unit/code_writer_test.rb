@@ -596,7 +596,7 @@ class CodeWriterTest < Minitest::Test
     assert_equal(expected, output.string)
   end
 
-  def test_write_function_writes_to_output
+  def test_write_return_writes_to_output
     output = StringIO.new
     code_writer = CodeWriter.new(output)
     code_writer.write_return
