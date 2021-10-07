@@ -187,15 +187,7 @@ class CodeWriter
     @out.puts "(#{function_name})\n"
 
     num_locals.times do
-      @out.puts <<~EOF
-        @0
-        D=A
-        @SP
-        A=M
-        M=D
-        @SP
-        M=M+1
-      EOF
+      write_push_pop(:C_PUSH, "constant", 0)
     end
   end
 
