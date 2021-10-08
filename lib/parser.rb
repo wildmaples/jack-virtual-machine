@@ -23,7 +23,9 @@ class Parser
     'pop' => :C_POP,
     'label' => :C_LABEL,
     'if-goto' => :C_IF,
-    'goto' => :C_GOTO
+    'goto' => :C_GOTO,
+    'function' => :C_FUNCTION,
+    'return' => :C_RETURN
   }
 
   def command_type

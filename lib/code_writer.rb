@@ -137,11 +137,58 @@ class CodeWriter
   end
 
   def write_return
-    raise NotImplementedError
+    @out.puts <<~EOF
+      @LCL
+      D=M
+      @FRAME
+      M=D
+      @5
+      A=D-A
+      D=M
+      @RET
+      M=D
+      @SP
+      A=M-1
+      D=M
+      @ARG
+      A=M
+      M=D
+      @ARG
+      D=M+1
+      @SP
+      M=D
+      @FRAME
+      AM=M-1
+      D=M
+      @THAT
+      M=D
+      @FRAME
+      AM=M-1
+      D=M
+      @THIS
+      M=D
+      @FRAME
+      AM=M-1
+      D=M
+      @ARG
+      M=D
+      @FRAME
+      AM=M-1
+      D=M
+      @LCL
+      M=D
+      @RET
+      A=M
+      0;JMP
+    EOF
   end
 
   def write_function(function_name, num_locals)
-    raise NotImplementedError
+    @out.puts "(#{function_name})\n"
+
+    num_locals.times do
+      write_push_pop(:C_PUSH, "constant", 0)
+    end
   end
 
   private
