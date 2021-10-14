@@ -5,6 +5,12 @@ require_relative '../lib/vm_translator'
 if File.file?(ARGV[0])
   input_file = File.open(ARGV[0])
   puts VMTranslator.new(input_file).translate
+elsif File.directory?(ARGV[0])
+  vm_files = Dir[ARGV[0] + "/*.vm"]
+  vm_files.each do |f|
+    input_file = File.open(f)
+    puts VMTranslator.new(input_file).translate
+  end
 else
   raise ArgumentError.new("We can only translate a single .vm file at a time")
 end
