@@ -4,11 +4,12 @@ require 'stringio'
 
 class VMTranslator
   def initialize
-    @out = StringIO.new
-    @code_writer = CodeWriter.new(@out)
+    # TODO: Add bootstrap code
   end
 
   def translate(input_file)
+    @out = StringIO.new
+    @code_writer = CodeWriter.new(@out)
     parser = Parser.new(input_file)
     file_name = File.basename(input_file.path, ".vm")
 

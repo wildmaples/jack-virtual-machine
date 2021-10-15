@@ -7,9 +7,10 @@ if File.file?(ARGV[0])
   puts VMTranslator.new.translate(input_file)
 elsif File.directory?(ARGV[0])
   vm_files = Dir[ARGV[0] + "/*.vm"]
+  vm_translator = VMTranslator.new
   vm_files.each do |f|
     input_file = File.open(f)
-    puts VMTranslator.new.translate(input_file)
+    puts vm_translator.translate(input_file)
   end
 else
   raise ArgumentError.new("Make sure your input is a folder or .vm file")
