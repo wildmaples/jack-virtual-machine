@@ -3,15 +3,14 @@ require_relative 'parser'
 require 'stringio'
 
 class VMTranslator
-  def initialize(input_file)
-    @input_file = input_file
+  def initialize
     @out = StringIO.new
     @code_writer = CodeWriter.new(@out)
   end
 
-  def translate
-    parser = Parser.new(@input_file)
-    file_name = File.basename(@input_file.path, ".vm")
+  def translate(input_file)
+    parser = Parser.new(input_file)
+    file_name = File.basename(input_file.path, ".vm")
 
     @code_writer.set_file_name(file_name)
     while parser.has_more_commands?
