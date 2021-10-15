@@ -178,4 +178,14 @@ class ParserTest < Minitest::Test
     parser.advance
     assert_equal(:C_RETURN, parser.command_type)
   end
+
+  def test_command_type_returns_function_command_and_arg1_arg2
+    input_file = StringIO.new("call foo 3")
+    parser = Parser.new(input_file)
+
+    parser.advance
+    assert_equal(:C_CALL, parser.command_type)
+    assert_equal("foo", parser.arg1)
+    assert_equal(3, parser.arg2)
+  end
 end
