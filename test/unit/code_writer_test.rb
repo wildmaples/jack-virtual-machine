@@ -654,7 +654,7 @@ class CodeWriterTest < Minitest::Test
     code_writer.write_call("foo", 9)
 
     expected = <<~EOF
-      @$return-address
+      @$return-address0
       D=A
       @SP
       A=M
@@ -701,7 +701,7 @@ class CodeWriterTest < Minitest::Test
       M=D
       @$foo
       0;JMP
-      ($return-address)
+      ($return-address0)
     EOF
 
     assert_equal(expected, output.string)

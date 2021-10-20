@@ -134,7 +134,7 @@ class CodeWriter
 
   def write_call(function_name, num_args)
     @out.puts <<~EOF
-      @$return-address
+      @$return-address#{@label_counter}
       D=A
     EOF
     write_push_D_register
@@ -164,7 +164,7 @@ class CodeWriter
     EOF
 
     write_goto(function_name)
-    write_label("return-address")
+    write_label("return-address#{@label_counter}")
   end
 
   def write_return
