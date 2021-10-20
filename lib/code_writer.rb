@@ -108,7 +108,14 @@ class CodeWriter
   end
 
   def write_init
-    raise NotImplementedError
+    @out.puts <<~EOF
+      @256
+      D=A
+      @SP
+      M=D
+    EOF
+
+    write_call("Sys.init", 0)
   end
 
   def write_label(label)

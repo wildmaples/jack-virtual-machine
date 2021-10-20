@@ -706,4 +706,67 @@ class CodeWriterTest < Minitest::Test
 
     assert_equal(expected, output.string)
   end
+
+  def test_write_init
+    output = StringIO.new
+    code_writer = CodeWriter.new(output)
+    code_writer.write_init
+
+    expected = <<~EOF
+      @256
+      D=A
+      @SP
+      M=D
+      @$return-address0
+      D=A
+      @SP
+      A=M
+      M=D
+      @SP
+      M=M+1
+      @LCL
+      D=M
+      @SP
+      A=M
+      M=D
+      @SP
+      M=M+1
+      @ARG
+      D=M
+      @SP
+      A=M
+      M=D
+      @SP
+      M=M+1
+      @THIS
+      D=M
+      @SP
+      A=M
+      M=D
+      @SP
+      M=M+1
+      @THAT
+      D=M
+      @SP
+      A=M
+      M=D
+      @SP
+      M=M+1
+      @5
+      D=A
+      @SP
+      D=M-D
+      @ARG
+      M=D
+      @SP
+      D=M
+      @LCL
+      M=D
+      @$Sys.init
+      0;JMP
+      ($return-address0)
+    EOF
+
+    assert_equal(expected, output.string)
+  end
 end
