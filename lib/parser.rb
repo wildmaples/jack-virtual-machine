@@ -25,7 +25,8 @@ class Parser
     'if-goto' => :C_IF,
     'goto' => :C_GOTO,
     'function' => :C_FUNCTION,
-    'return' => :C_RETURN
+    'return' => :C_RETURN,
+    'call' => :C_CALL
   }
 
   def command_type
