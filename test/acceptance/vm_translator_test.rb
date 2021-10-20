@@ -48,4 +48,12 @@ class VMTranslatorAcceptanceTest < Minitest::Test
       end
     end
   end
+
+  def test_translate_directory_of_VM_files
+    assembly_code = `bin/vm-translator examples`
+    Dir.mktmpdir do |temporary_directory|
+      assembly_code_path = File.join(temporary_directory, "FooBar.asm")
+      assert File.write(assembly_code_path, assembly_code) > 0
+    end
+  end
 end
