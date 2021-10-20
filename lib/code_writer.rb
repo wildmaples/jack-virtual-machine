@@ -172,6 +172,7 @@ class CodeWriter
 
     write_goto(function_name)
     write_label("return-address#{@label_counter}")
+    @label_counter += 1
   end
 
   def write_return
