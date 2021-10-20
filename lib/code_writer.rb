@@ -167,16 +167,6 @@ class CodeWriter
     write_label("return-address")
   end
 
-  def write_push_D_register
-    @out.puts <<~EOF
-      @SP
-      A=M
-      M=D
-      @SP
-      M=M+1
-    EOF
-  end
-
   def write_return
     @out.puts <<~EOF
       @LCL
@@ -267,5 +257,15 @@ class CodeWriter
     when "static"
       "@#{@file_name}.#{index}\nD=M"
     end
+  end
+
+  def write_push_D_register
+    @out.puts <<~EOF
+      @SP
+      A=M
+      M=D
+      @SP
+      M=M+1
+    EOF
   end
 end
