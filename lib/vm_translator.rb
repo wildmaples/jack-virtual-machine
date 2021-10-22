@@ -3,13 +3,14 @@ require_relative 'parser'
 require 'stringio'
 
 class VMTranslator
-  def initialize
-    # TODO: Add bootstrap code
+  def initialize(out)
+    @out = out
+    @code_writer = CodeWriter.new(out)
   end
 
+  attr_reader :out, :code_writer
+
   def translate(input_file)
-    out = StringIO.new
-    code_writer = CodeWriter.new(out)
     parser = Parser.new(input_file)
     file_name = File.basename(input_file.path, ".vm")
 
@@ -37,8 +38,9 @@ class VMTranslator
         warn("Unknown command type passed into VMTranslator")
       end
     end
+  end
 
+  def close
     code_writer.close
-    out.string
   end
 end
