@@ -31,6 +31,8 @@ class VMTranslator
         code_writer.write_function(parser.arg1, parser.arg2)
       when :C_RETURN
         code_writer.write_return
+      when :C_CALL
+        code_writer.write_call(parser.arg1, parser.arg2)
       else
         warn("Unknown command type passed into VMTranslator")
       end

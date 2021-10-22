@@ -108,7 +108,14 @@ class CodeWriter
   end
 
   def write_init
-    raise NotImplementedError
+    @out.puts <<~EOF
+      @256
+      D=A
+      @SP
+      M=D
+    EOF
+
+    write_call("Sys.init", 0)
   end
 
   def write_label(label)
@@ -133,7 +140,39 @@ class CodeWriter
   end
 
   def write_call(function_name, num_args)
-    raise NotImplementedError
+    @out.puts <<~EOF
+      @$return-address#{@label_counter}
+      D=A
+    EOF
+    write_push_D_register
+
+    ["LCL", "ARG", "THIS", "THAT"].each do |label|
+      @out.puts <<~EOF
+        @#{label}
+        D=M
+      EOF
+      write_push_D_register
+    end
+
+    @out.puts <<~EOF
+      @#{num_args + 5}
+      D=A
+      @SP
+      D=M-D
+      @ARG
+      M=D
+    EOF
+
+    @out.puts <<~EOF
+      @SP
+      D=M
+      @LCL
+      M=D
+    EOF
+
+    write_goto(function_name)
+    write_label("return-address#{@label_counter}")
+    @label_counter += 1
   end
 
   def write_return
@@ -226,5 +265,15 @@ class CodeWriter
     when "static"
       "@#{@file_name}.#{index}\nD=M"
     end
+  end
+
+  def write_push_D_register
+    @out.puts <<~EOF
+      @SP
+      A=M
+      M=D
+      @SP
+      M=M+1
+    EOF
   end
 end
