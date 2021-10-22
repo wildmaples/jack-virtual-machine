@@ -146,7 +146,7 @@ class CodeWriter
     EOF
     write_push_D_register
 
-    ["LCL", "ARG", "THIS", "THAT"].each do |label|
+    %w[LCL ARG THIS THAT].each do |label|
       @out.puts <<~EOF
         @#{label}
         D=M
@@ -174,7 +174,7 @@ class CodeWriter
       @#{function_name}
       0;JMP
     EOF
-    
+
     write_label("return-address#{@label_counter}")
     @label_counter += 1
   end
