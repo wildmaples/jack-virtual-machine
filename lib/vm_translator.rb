@@ -8,6 +8,10 @@ class VMTranslator
     @code_writer = CodeWriter.new(out)
   end
 
+  def bootstrap
+    code_writer.write_init
+  end
+
   attr_reader :out, :code_writer
 
   def translate(input_file)
