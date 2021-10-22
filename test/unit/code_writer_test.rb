@@ -646,7 +646,7 @@ class CodeWriterTest < Minitest::Test
       D=M
       @LCL
       M=D
-      @$foo
+      @foo
       0;JMP
       ($return-address0)
     EOF
@@ -707,7 +707,7 @@ class CodeWriterTest < Minitest::Test
       D=M
       @LCL
       M=D
-      @$Sys.init
+      @Sys.init
       0;JMP
       ($return-address0)
     EOF

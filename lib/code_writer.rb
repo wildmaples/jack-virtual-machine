@@ -170,7 +170,11 @@ class CodeWriter
       M=D
     EOF
 
-    write_goto(function_name)
+    @out.puts <<~EOF
+      @#{function_name}
+      0;JMP
+    EOF
+    
     write_label("return-address#{@label_counter}")
     @label_counter += 1
   end
