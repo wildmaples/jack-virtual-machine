@@ -2,19 +2,19 @@
 
 require_relative '../lib/vm_translator'
 
+vm_translator = VMTranslator.new(STDOUT)
+
 if File.file?(ARGV[0])
   input_file = File.open(ARGV[0])
-  vm_translator = VMTranslator.new(STDOUT)
   vm_translator.translate(input_file)
-  vm_translator.close
 elsif File.directory?(ARGV[0])
   vm_files = Dir[ARGV[0] + "/*.vm"]
-  vm_translator = VMTranslator.new(STDOUT)
   vm_files.each do |f|
     input_file = File.open(f)
     vm_translator.translate(input_file)
   end
-  vm_translator.close
 else
   raise ArgumentError.new("Make sure your input is a folder or .vm file")
 end
+
+vm_translator.close
