@@ -1,3 +1,4 @@
+# typed: true
 class CodeWriter
   def initialize(out)
     @out = out

@@ -1,3 +1,4 @@
+# typed: true
 class Parser
   def initialize(input_file)
     @lines = remove_non_commands(input_file.readlines)

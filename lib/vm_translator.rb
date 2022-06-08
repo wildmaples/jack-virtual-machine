@@ -1,3 +1,4 @@
+# typed: true
 require_relative 'code_writer'
 require_relative 'parser'
 require 'stringio'
