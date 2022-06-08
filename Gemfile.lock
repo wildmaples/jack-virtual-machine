@@ -3,14 +3,23 @@ GEM
   specs:
     minitest (5.14.4)
     rake (13.0.4)
+    sorbet (0.5.10082)
+      sorbet-static (= 0.5.10082)
+    sorbet-runtime (0.5.10082)
+    sorbet-static (0.5.10082-universal-darwin-20)
+    sorbet-static (0.5.10082-universal-darwin-21)
+    sorbet-static (0.5.10082-x86_64-linux)
 
 PLATFORMS
+  arm64-darwin-21
   x86_64-darwin-20
   x86_64-linux
 
 DEPENDENCIES
   minitest
   rake
+  sorbet
+  sorbet-runtime
 
 BUNDLED WITH
    2.2.3
