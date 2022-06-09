@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 require "test_helper"
 require "fileutils"
 require "tmpdir"
@@ -11,6 +11,7 @@ class VMTranslatorAcceptanceTest < Minitest::Test
     test_name = "test_acceptance_#{base_name}"
 
     define_method(test_name) do
+      T.bind(self, VMTranslatorAcceptanceTest)
       skip "can’t find CPU emulator, please set CPU_EMULATOR" unless CPU_EMULATOR_PATH
 
       # make a temporary directory
@@ -31,7 +32,7 @@ class VMTranslatorAcceptanceTest < Minitest::Test
 
         # run .tst in the CPU emulator and remember its exit status
         test_script_path = File.join(temporary_directory, "#{base_name}.tst")
-        cpu_emulator_exit_status = nil
+        cpu_emulator_exit_status = T.let(nil, T.nilable(T::Boolean))
         _cpu_emulator_output, cpu_emulator_error = capture_subprocess_io do
           cpu_emulator_exit_status = system(CPU_EMULATOR_PATH, test_script_path)
         end
